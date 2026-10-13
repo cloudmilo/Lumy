@@ -18,8 +18,7 @@
 
 ## Download
 
-1. Download `Lumy-x.y.z-win-x64.zip` from the [latest release](https://github.com/cloudmilo/Lumy/releases/latest).
-2. Extract it anywhere and run `Lumy.exe`.
+Download `Lumy.exe` from the [latest release](https://github.com/cloudmilo/Lumy/releases/latest) and run it. It is a single file with nothing to install; put it wherever you like.
 
 Lumy checks for new versions on its own and can update itself.
 
