@@ -9,7 +9,7 @@
 <p align="center">
   <a href="https://github.com/cloudmilo/Lumy/releases/latest"><img src="https://img.shields.io/github/v/release/cloudmilo/Lumy?style=flat-square&label=latest" alt="Latest release" /></a>
   <a href="https://github.com/cloudmilo/Lumy/releases"><img src="https://img.shields.io/github/downloads/cloudmilo/Lumy/total?style=flat-square" alt="Downloads" /></a>
-  <img src="https://img.shields.io/badge/platform-Windows-0078D4?style=flat-square" alt="Platform" />
+  <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-0078D4?style=flat-square" alt="Platform" />
 </p>
 
 <p align="center">
@@ -21,6 +21,8 @@
 Download `Lumy.exe` from the [latest release](https://github.com/cloudmilo/Lumy/releases/latest) and run it. It is a single file with nothing to install; put it wherever you like.
 
 Lumy checks for new versions on its own and can update itself.
+
+macOS and Linux test builds are attached to each release too; its notes say how to open them.
 
 ## Features
 
@@ -36,7 +38,7 @@ Lumy checks for new versions on its own and can update itself.
 - Windows 10 or 11, 64-bit.
 - Microsoft Edge WebView2 Runtime (already included with Windows 11).
 
-macOS and Linux builds are coming.
+macOS 12 or later, and Linux with WebKitGTK, for the test builds.
 
 ---
 
