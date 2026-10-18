@@ -1,0 +1,62 @@
+# Builds CUE4Parse's native library (Oodle and ACL) for macOS and Linux from the official CUE4Parse
+# (https://github.com/FabianFG/CUE4Parse), at the commit it is asked for. It needs nothing else: Lumy's macOS and
+# Linux builds bundle what it builds.
+name: Natives
+run-name: CUE4Parse natives ${{ inputs.cue4parse }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      cue4parse:
+        description: The CUE4Parse commit to build
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  macos:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: FabianFG/CUE4Parse
+          ref: ${{ inputs.cue4parse }}
+          submodules: recursive
+      - name: Build for Apple silicon and Intel
+        run: |
+          for arch in arm64 x86_64; do
+            runtime=$([ "$arch" = arm64 ] && echo osx-arm64 || echo osx-x64)
+            cmake -S CUE4Parse-Natives -B "build/$runtime" -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_ARCHITECTURES=$arch
+            cmake --build "build/$runtime" --config Release
+            mkdir -p "natives/$runtime"
+            cp "build/$runtime/CUE4Parse-Natives.dylib" "natives/$runtime/"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: natives-macos
+          path: natives/
+          retention-days: 90
+          if-no-files-found: error
+
+  linux:
+    # An older system, so the library runs on older Linux systems too.
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: FabianFG/CUE4Parse
+          ref: ${{ inputs.cue4parse }}
+          submodules: recursive
+      - name: Build for Linux
+        run: |
+          cmake -S CUE4Parse-Natives -B build/linux-x64 -DCMAKE_BUILD_TYPE=Release
+          cmake --build build/linux-x64 --config Release
+          mkdir -p natives/linux-x64
+          cp build/linux-x64/CUE4Parse-Natives.so natives/linux-x64/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: natives-linux
+          path: natives/
+          retention-days: 90
+          if-no-files-found: error
